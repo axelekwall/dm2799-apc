@@ -19,4 +19,12 @@ const firebaseConfig = {
 // Initialize Firebase
 const fb = firebase.initializeApp(firebaseConfig)
 
-export const auth = fb.auth()
+const auth = fb.auth()
+
+const signOut = () => auth.signOut()
+
+const signIn = () => {
+  // TODO: sign in with github here
+}
+
+export { auth, signOut, signIn }

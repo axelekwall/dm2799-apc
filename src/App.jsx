@@ -7,8 +7,8 @@ import store from './store'
 function App() {
   return (
     <Provider store={store}>
-      <CssBaseline></CssBaseline>
-      <Router></Router>
+      <CssBaseline />
+      <Router />
     </Provider>
   )
 }

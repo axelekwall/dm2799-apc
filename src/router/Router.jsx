@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 import PrivateRoute from './PrivateRoute'
 import Home from '../pages/Home'
 import Login from '../pages/Login'
-import Logout from '../pages/Logout'
+import useAuth from '../hooks/useAuth'
 
 const ProtectedRoutes = () => (
   <Switch>
@@ -12,14 +12,16 @@ const ProtectedRoutes = () => (
   </Switch>
 )
 
-const Router = () => (
-  <BrowserRouter>
-    <Switch>
-      <Route component={Login} path="/login"></Route>
-      <Route component={Logout} path="/logout"></Route>
-      <PrivateRoute component={ProtectedRoutes}></PrivateRoute>
-    </Switch>
-  </BrowserRouter>
-)
+const Router = () => {
+  const isInitialized = useAuth()
+  return isInitialized ? (
+    <BrowserRouter>
+      <Switch>
+        <Route component={Login} path="/login"></Route>
+        <PrivateRoute component={ProtectedRoutes}></PrivateRoute>
+      </Switch>
+    </BrowserRouter>
+  ) : null
+}
 
 export default Router

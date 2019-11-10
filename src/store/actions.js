@@ -5,7 +5,7 @@ export const authSuccess = payload => ({
   payload,
 })
 
-export const setInitialized = () => ({
+export const setAuthInitialized = () => ({
   type: SET_AUTH_INITIALIZED,
 })
 

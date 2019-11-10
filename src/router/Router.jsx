@@ -7,8 +7,8 @@ import useAuth from '../hooks/useAuth'
 
 const ProtectedRoutes = () => (
   <Switch>
-    <Route component={Home} path="/dashboard"></Route>
-    <Redirect to="/dashboard"></Redirect>
+    <Route component={Home} path="/dashboard" />
+    <Redirect to="/dashboard" />
   </Switch>
 )
 
@@ -17,8 +17,8 @@ const Router = () => {
   return isInitialized ? (
     <BrowserRouter>
       <Switch>
-        <Route component={Public} path="/"></Route>
-        <PrivateRoute component={ProtectedRoutes}></PrivateRoute>
+        <Route component={Public} path="/" />
+        <PrivateRoute component={ProtectedRoutes} />
       </Switch>
     </BrowserRouter>
   ) : null

@@ -19,7 +19,7 @@ const useAuth = () => {
       async user => {
         try {
           if (user) {
-            // Auth successfull
+            // Auth successful
             setAuth(user)
           } else {
             // No user
@@ -28,7 +28,7 @@ const useAuth = () => {
         } catch (error) {
           // No user
           console.log(error)
-          signOut()
+          await signOut()
         } finally {
           initialized()
         }

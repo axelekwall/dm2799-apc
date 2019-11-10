@@ -5,7 +5,7 @@ import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
 
-// TODO: Replace the following with your app's Firebase project configuration
+// Firebase configuration
 const firebaseConfig = {
   apiKey: 'AIzaSyCbKO0BaP__-CiEXrcTZZSchQJe-hz3QLY',
   authDomain: 'dm2799-apc.firebaseapp.com',

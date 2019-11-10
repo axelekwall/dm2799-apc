@@ -1,4 +1,4 @@
-import { AUTH_SUCCESS, SET_AUTH_INITIALIZED, RESET_STATE } from './types'
+import { AUTH_SUCCESS, SET_AUTH_INITIALIZED, RESET_STATE } from './actions'
 
 const initialState = {
   authInitialized: false,

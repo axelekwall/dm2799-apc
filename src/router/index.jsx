@@ -17,7 +17,7 @@ const Router = () => {
   return isInitialized ? (
     <BrowserRouter>
       <Switch>
-        <Route component={Public} path="/" />
+        <Route component={Home} path="/" />
         <PrivateRoute component={ProtectedRoutes} />
       </Switch>
     </BrowserRouter>

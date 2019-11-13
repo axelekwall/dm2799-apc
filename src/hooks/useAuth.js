@@ -1,17 +1,17 @@
 import { useEffect, useCallback } from 'react'
-import { authSuccess, setAuthInitialized, resetState } from '../store/actions'
+import { actions } from '../store/auth'
 import { auth, signOut } from '../services/firebase'
 import { useSelector, useDispatch } from 'react-redux'
 
 const useAuth = () => {
   const dispatch = useDispatch()
-  const setAuth = useCallback(payload => dispatch(authSuccess(payload)), [
+  const setAuth = useCallback(payload => dispatch(actions.success(payload)), [
     dispatch,
   ])
   const storeReset = useCallback(() => {
-    dispatch(resetState())
+    dispatch(actions.reset())
   }, [dispatch])
-  const initialized = useCallback(() => dispatch(setAuthInitialized()), [
+  const initialized = useCallback(() => dispatch(actions.initialized()), [
     dispatch,
   ])
   useEffect(() => {
@@ -43,7 +43,7 @@ const useAuth = () => {
       unsubscribe()
     }
   }, [initialized, setAuth, storeReset])
-  return useSelector(state => state.authInitialized)
+  return useSelector(state => state.auth.initialized)
 }
 
 export default useAuth

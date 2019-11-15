@@ -1,6 +1,9 @@
 import React from 'react'
 import Header from '../components/Header'
-import { Container, Grid, Paper } from '@material-ui/core'
+import TaskList from '../components/TaskList'
+import MainVisualization from '../components/MainVisualization'
+import ProgressVisualization from '../components/ProgressVisualization'
+import { Container, Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles(theme => ({
@@ -32,21 +35,19 @@ const Home = () => {
         <Container maxWidth="xl" className={classes.container}>
           <Grid container spacing={3}>
             <Grid item xs={12}>
-              <Paper className={classes.paper}>Main Visualization</Paper>
+              <MainVisualization />
             </Grid>
             <Grid item xs={12}>
-              <Paper className={classes.paper}>
-                Visualization of progress over time
-              </Paper>
+              <ProgressVisualization />
             </Grid>
             <Grid item xs={12} md={4}>
-              <Paper className={classes.paper}>To Do</Paper>
+              <TaskList title="Todo" taskState="todo" />
             </Grid>
             <Grid item xs={12} md={4}>
-              <Paper className={classes.paper}>In Progress</Paper>
+              <TaskList title="In Progress" taskState="inProgress" />
             </Grid>
             <Grid item xs={12} md={4}>
-              <Paper className={classes.paper}>Done</Paper>
+              <TaskList title="Done" taskState="done" />
             </Grid>
           </Grid>
         </Container>

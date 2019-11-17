@@ -1,26 +1,26 @@
-import { createSlice } from '@reduxjs/toolkit'
-import { nodes, links } from '../mockData'
+import { createSlice } from '@reduxjs/toolkit';
+import { nodes, links } from '../mockData';
 
 const initialState = {
   nodes,
   links,
   history: [],
-}
+};
 
 const dataSlice = createSlice({
   name: 'data',
   initialState,
   reducers: {
     success: (state, { payload }) => {
-      state.user = payload
+      state.user = payload;
     },
     reset: () => initialState,
     initialized: state => {
-      state.initialized = true
+      state.initialized = true;
     },
   },
-})
+});
 
-export const { actions } = dataSlice
+export const { actions } = dataSlice;
 
-export default dataSlice.reducer
+export default dataSlice.reducer;

@@ -1,9 +1,9 @@
 // Firebase App (the core Firebase SDK) is always required and must be listed first
-import firebase from 'firebase/app'
+import firebase from 'firebase/app';
 
 // Add the Firebase products that you want to use
-import 'firebase/auth'
-import 'firebase/firestore'
+import 'firebase/auth';
+import 'firebase/firestore';
 
 // Firebase configuration
 const firebaseConfig = {
@@ -14,17 +14,17 @@ const firebaseConfig = {
   storageBucket: 'dm2799-apc.appspot.com',
   messagingSenderId: '697890787992',
   appId: '1:697890787992:web:16f705a9a1c2d0d80536ed',
-}
+};
 
 // Initialize Firebase
-const fb = firebase.initializeApp(firebaseConfig)
+const fb = firebase.initializeApp(firebaseConfig);
 
-const auth = fb.auth()
+const auth = fb.auth();
 
-const signOut = () => auth.signOut()
+const signOut = () => auth.signOut();
 
 const signIn = () => {
   // TODO: sign in with github here
-}
+};
 
-export { auth, signOut, signIn }
+export { auth, signOut, signIn };

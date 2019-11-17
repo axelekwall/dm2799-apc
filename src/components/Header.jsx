@@ -1,7 +1,7 @@
-import React from 'react'
-import { AppBar, Toolbar, Button, Typography, Icon } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-import { AccountCircle } from '@material-ui/icons'
+import React from 'react';
+import { AppBar, Toolbar, Button, Typography, Icon } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import { AccountCircle } from '@material-ui/icons';
 
 const useStyles = makeStyles(theme => ({
   title: {
@@ -10,10 +10,10 @@ const useStyles = makeStyles(theme => ({
   accountCircle: {
     marginRight: theme.spacing(2),
   },
-}))
+}));
 
 const Header = ({ title }) => {
-  const classes = useStyles()
+  const classes = useStyles();
   return (
     <AppBar position="absolute">
       <Toolbar>
@@ -28,7 +28,7 @@ const Header = ({ title }) => {
         </Button>
       </Toolbar>
     </AppBar>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

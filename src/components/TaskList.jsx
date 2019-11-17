@@ -1,20 +1,20 @@
-import React from 'react'
-import { Paper, Grid, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-import { useSelector } from 'react-redux'
-import Task from './Task'
-import { selectTasks } from '../utils/selectHelpers'
+import React from 'react';
+import { Paper, Grid, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import { useSelector } from 'react-redux';
+import Task from './Task';
+import { selectTasks } from '../utils/selectHelpers';
 
 const useStyles = makeStyles(theme => ({
   paper: {
     padding: theme.spacing(2),
     display: 'flex',
   },
-}))
+}));
 
 const TaskList = ({ title, taskState }) => {
-  const classes = useStyles()
-  const tasks = useSelector(selectTasks(taskState))
+  const classes = useStyles();
+  const tasks = useSelector(selectTasks(taskState));
   return (
     <Paper className={classes.paper}>
       <Grid container direction="column" spacing={2}>
@@ -28,7 +28,7 @@ const TaskList = ({ title, taskState }) => {
         ))}
       </Grid>
     </Paper>
-  )
-}
+  );
+};
 
-export default TaskList
+export default TaskList;

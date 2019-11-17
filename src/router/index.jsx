@@ -1,19 +1,19 @@
-import React from 'react'
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
-import PrivateRoute from './PrivateRoute'
-import Home from '../pages/Home'
-import Public from '../pages/Public'
-import useAuth from '../hooks/useAuth'
+import React from 'react';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import PrivateRoute from './PrivateRoute';
+import Home from '../pages/Home';
+import Public from '../pages/Public';
+import useAuth from '../hooks/useAuth';
 
 const ProtectedRoutes = () => (
   <Switch>
     <Route component={Home} path="/dashboard" />
     <Redirect to="/dashboard" />
   </Switch>
-)
+);
 
 const Router = () => {
-  const isInitialized = useAuth()
+  const isInitialized = useAuth();
   return isInitialized ? (
     <BrowserRouter>
       <Switch>
@@ -21,7 +21,7 @@ const Router = () => {
         <PrivateRoute component={ProtectedRoutes} />
       </Switch>
     </BrowserRouter>
-  ) : null
-}
+  ) : null;
+};
 
-export default Router
+export default Router;

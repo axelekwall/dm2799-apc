@@ -8,7 +8,7 @@ export const links = [
   { source: '4', target: '7 ', value: 1 },
   { source: '5', target: '7 ', value: 1 },
   { source: '6', target: '8 ', value: 1 },
-]
+];
 
 export const nodes = [
   {
@@ -71,4 +71,4 @@ export const nodes = [
     type: 'task',
     state: 'todo',
   },
-]
+];

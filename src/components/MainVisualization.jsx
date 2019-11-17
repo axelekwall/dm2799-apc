@@ -1,16 +1,16 @@
-import React from 'react'
-import { Paper, Grid, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import React from 'react';
+import { Paper, Grid, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
   paper: {
     padding: theme.spacing(2),
     display: 'flex',
   },
-}))
+}));
 
 const MainVisualization = () => {
-  const classes = useStyles()
+  const classes = useStyles();
   return (
     <Paper className={classes.paper}>
       <Grid container direction="column" spacing={2}>
@@ -20,7 +20,7 @@ const MainVisualization = () => {
         <Grid item></Grid>
       </Grid>
     </Paper>
-  )
-}
+  );
+};
 
-export default MainVisualization
+export default MainVisualization;

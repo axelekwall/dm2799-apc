@@ -1,9 +1,9 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
-import { Redirect, Route } from 'react-router-dom'
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { Redirect, Route } from 'react-router-dom';
 
 const PrivateRoute = ({ component: PrivateComponent, ...rest }) => {
-  const isSignedIn = useSelector(state => state.auth.user !== null)
+  const isSignedIn = useSelector(state => state.auth.user !== null);
   return (
     <Route
       {...rest}
@@ -22,7 +22,7 @@ const PrivateRoute = ({ component: PrivateComponent, ...rest }) => {
         )
       }
     />
-  )
-}
+  );
+};
 
-export default PrivateRoute
+export default PrivateRoute;

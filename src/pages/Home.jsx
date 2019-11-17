@@ -1,10 +1,10 @@
-import React from 'react'
-import Header from '../components/Header'
-import TaskList from '../components/TaskList'
-import MainVisualization from '../components/MainVisualization'
-import ProgressVisualization from '../components/ProgressVisualization'
-import { Container, Grid } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import React from 'react';
+import Header from '../components/Header';
+import TaskList from '../components/TaskList';
+import MainVisualization from '../components/MainVisualization';
+import ProgressVisualization from '../components/ProgressVisualization';
+import { Container, Grid } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -23,10 +23,10 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
   },
   appBarSpacer: theme.mixins.toolbar,
-}))
+}));
 
 const Home = () => {
-  const classes = useStyles()
+  const classes = useStyles();
   return (
     <div className={classes.root}>
       <Header title="Dashboard" />
@@ -53,7 +53,7 @@ const Home = () => {
         </Container>
       </main>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

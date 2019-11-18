@@ -23,6 +23,9 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
   },
   appBarSpacer: theme.mixins.toolbar,
+  taskListsWrapper: {
+    marginTop: theme.spacing(2),
+  },
 }));
 
 const Home = () => {
@@ -33,13 +36,9 @@ const Home = () => {
       <main className={classes.main}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="xl" className={classes.container}>
-          <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <MainVisualization />
-            </Grid>
-            <Grid item xs={12}>
-              <ProgressVisualization />
-            </Grid>
+          <MainVisualization />
+          <ProgressVisualization />
+          <Grid className={classes.taskListsWrapper} container spacing={3}>
             <Grid item xs={12} md={4}>
               <TaskList title="Todo" taskState="todo" />
             </Grid>

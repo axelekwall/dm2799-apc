@@ -1,12 +1,11 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import {
   sankey as d3Sankey,
   sankeyLinkHorizontal,
   sankeyLeft,
 } from 'd3-sankey';
-import { useSelector } from 'react-redux';
-import { actions } from '../store/data';
-import useFocusNode from '../hooks/useFocus';
+import useFocusNode from '../hooks/useFocusNode';
+import useNodes from '../hooks/useNodes';
 
 const nodeWidth = 30;
 const nodePadding = 30;
@@ -19,7 +18,7 @@ const margin = {
 };
 
 const SankeyChart = ({ width, height }) => {
-  const nodes = useSelector(state => state.data.nodes);
+  const nodes = useNodes();
   const links = useMemo(() => {
     const tmp = [];
     nodes.forEach(node =>

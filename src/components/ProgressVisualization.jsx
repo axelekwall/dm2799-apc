@@ -1,25 +1,30 @@
 import React from 'react';
-import { Paper, Grid, Typography } from '@material-ui/core';
+import {
+  Typography,
+  ExpansionPanel,
+  ExpansionPanelSummary,
+  ExpansionPanelDetails,
+} from '@material-ui/core';
+import { ExpandMore } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(theme => ({
-  paper: {
-    padding: theme.spacing(2),
-    display: 'flex',
-  },
-}));
+const useStyles = makeStyles(theme => ({}));
 
 const ProgressVisualization = () => {
   const classes = useStyles();
   return (
-    <Paper className={classes.paper}>
-      <Grid container direction="column" spacing={2}>
-        <Grid item>
-          <Typography variant="h6">Progress Visualization</Typography>
-        </Grid>
-        <Grid item></Grid>
-      </Grid>
-    </Paper>
+    <ExpansionPanel defaultExpanded>
+      <ExpansionPanelSummary
+        expandIcon={<ExpandMore />}
+        aria-controls="panel1a-content"
+        id="panel1a-header"
+      >
+        <Typography variant="h6">Progress Visualization</Typography>
+      </ExpansionPanelSummary>
+      <ExpansionPanelDetails>
+        <div>Chart goes here</div>
+      </ExpansionPanelDetails>
+    </ExpansionPanel>
   );
 };
 

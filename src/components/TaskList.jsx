@@ -1,9 +1,8 @@
 import React from 'react';
 import { Paper, Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { useSelector } from 'react-redux';
 import Task from './Task';
-import { selectTasks } from '../utils/selectHelpers';
+import useNodes from '../hooks/useNodes';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -14,7 +13,7 @@ const useStyles = makeStyles(theme => ({
 
 const TaskList = ({ title, taskState }) => {
   const classes = useStyles();
-  const tasks = useSelector(selectTasks(taskState));
+  const tasks = useNodes({ type: 'task', state: taskState });
   return (
     <Paper className={classes.paper}>
       <Grid container direction="column" spacing={2}>

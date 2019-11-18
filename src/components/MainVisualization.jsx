@@ -23,7 +23,7 @@ const MainVisualization = () => {
         <Typography variant="h6">Main Visualization</Typography>
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
-        <SankeyChart width={800} height={500} />
+        <SankeyChart width={1000} height={400} />
       </ExpansionPanelDetails>
     </ExpansionPanel>
   );

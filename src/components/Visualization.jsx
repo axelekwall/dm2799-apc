@@ -6,9 +6,8 @@ import {
   ExpansionPanelDetails,
 } from '@material-ui/core';
 import { ExpandMore } from '@material-ui/icons';
-import SankeyChart from './SankeyChart';
 
-const MainVisualization = () => {
+const MainVisualization = ({ title, children }) => {
   return (
     <ExpansionPanel defaultExpanded>
       <ExpansionPanelSummary
@@ -16,11 +15,9 @@ const MainVisualization = () => {
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
-        <Typography variant="h6">Main Visualization</Typography>
+        <Typography variant="h6">{title}</Typography>
       </ExpansionPanelSummary>
-      <ExpansionPanelDetails>
-        <SankeyChart width={1000} height={400} />
-      </ExpansionPanelDetails>
+      <ExpansionPanelDetails>{children}</ExpansionPanelDetails>
     </ExpansionPanel>
   );
 };

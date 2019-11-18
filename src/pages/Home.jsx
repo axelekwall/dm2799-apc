@@ -1,10 +1,10 @@
 import React from 'react';
 import Header from '../components/Header';
 import TaskList from '../components/TaskList';
-import MainVisualization from '../components/MainVisualization';
-import ProgressVisualization from '../components/ProgressVisualization';
+import Visualization from '../components/Visualization';
 import { Container, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import SankeyChart from '../components/SankeyChart';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -36,8 +36,12 @@ const Home = () => {
       <main className={classes.main}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="xl" className={classes.container}>
-          <MainVisualization />
-          <ProgressVisualization />
+          <Visualization title="Main Visualization">
+            <SankeyChart width={1000} height={400} />
+          </Visualization>
+          <Visualization title="Progress Visualization">
+            <div>Test</div>
+          </Visualization>
           <Grid className={classes.taskListsWrapper} container spacing={3}>
             <Grid item xs={12} md={4}>
               <TaskList title="Todo" taskState="todo" />

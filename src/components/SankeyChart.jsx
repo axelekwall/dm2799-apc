@@ -8,10 +8,7 @@ import { Rect, Path, VictoryContainer } from 'victory';
 import useFocusNode from '../hooks/useFocusNode';
 import useNodes from '../hooks/useNodes';
 
-const nodeWidth = 30;
-const nodePadding = 30;
-
-const SankeyChart = ({ width, height }) => {
+const SankeyChart = ({ width, height, nodeWidth = 30, nodePadding = 30 }) => {
   const { focusNode, setFocusNode } = useFocusNode();
   const nodes = useNodes();
   const links = useMemo(() => {
@@ -28,12 +25,16 @@ const SankeyChart = ({ width, height }) => {
     return tmp;
   }, [nodes]);
 
-  const sankey = d3Sankey()
-    .nodePadding(nodePadding)
-    .nodeWidth(nodeWidth)
-    .nodeAlign(sankeyLeft)
-    .nodeId(d => d.id)
-    .size([width, height]);
+  const sankey = useMemo(
+    () =>
+      d3Sankey()
+        .nodePadding(nodePadding)
+        .nodeWidth(nodeWidth)
+        .nodeAlign(sankeyLeft)
+        .nodeId(d => d.id)
+        .size([width, height]),
+    [nodePadding, nodeWidth, width, height]
+  );
 
   const graph = sankey({
     nodes: nodes.map(d => Object.assign({}, d)),

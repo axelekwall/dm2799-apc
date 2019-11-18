@@ -1,14 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import nodes from '../mockData';
 
 const initialState = {
-  nodes,
   focusNode: '',
-  history: [],
 };
 
-const dataSlice = createSlice({
-  name: 'data',
+const uiSlice = createSlice({
+  name: 'ui',
   initialState,
   reducers: {
     setFocusNode: (state, { payload }) => {
@@ -17,6 +14,6 @@ const dataSlice = createSlice({
   },
 });
 
-export const { actions } = dataSlice;
+export const { actions } = uiSlice;
 
-export default dataSlice.reducer;
+export default uiSlice.reducer;

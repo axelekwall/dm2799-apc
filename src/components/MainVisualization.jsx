@@ -1,6 +1,7 @@
 import React from 'react';
 import { Paper, Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import SankeyChart from './SankeyChart';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -17,7 +18,9 @@ const MainVisualization = () => {
         <Grid item>
           <Typography variant="h6">Main Visualization</Typography>
         </Grid>
-        <Grid item></Grid>
+        <Grid item>
+          <SankeyChart width={800} height={500} />
+        </Grid>
       </Grid>
     </Paper>
   );

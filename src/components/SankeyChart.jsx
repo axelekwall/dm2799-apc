@@ -12,6 +12,7 @@ const nodeWidth = 30;
 const nodePadding = 30;
 
 const SankeyChart = ({ width, height }) => {
+  const { focusNode, setFocusNode } = useFocusNode();
   const nodes = useNodes();
   const links = useMemo(() => {
     const tmp = [];
@@ -39,10 +40,6 @@ const SankeyChart = ({ width, height }) => {
     links: links.map(d => Object.assign({}, d)),
   });
 
-  const { focusNode, setFocusNode } = useFocusNode();
-
-  console.log(graph);
-
   return (
     <VictoryContainer width={width} height={height}>
       {graph.links.map(link => (
@@ -60,7 +57,7 @@ const SankeyChart = ({ width, height }) => {
           {...setFocusNode(node.id)}
           key={node.id}
           fill={node.id === focusNode ? 'black' : 'grey'}
-          x={node.x0 + 1}
+          x={node.x0}
           y={node.y0}
           width={node.x1 - node.x0}
           height={node.y1 - node.y0}

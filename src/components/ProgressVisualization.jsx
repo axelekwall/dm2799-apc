@@ -6,12 +6,8 @@ import {
   ExpansionPanelDetails,
 } from '@material-ui/core';
 import { ExpandMore } from '@material-ui/icons';
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles(theme => ({}));
 
 const ProgressVisualization = () => {
-  const classes = useStyles();
   return (
     <ExpansionPanel defaultExpanded>
       <ExpansionPanelSummary

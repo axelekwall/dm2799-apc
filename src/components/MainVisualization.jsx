@@ -6,13 +6,9 @@ import {
   ExpansionPanelDetails,
 } from '@material-ui/core';
 import { ExpandMore } from '@material-ui/icons';
-import { makeStyles } from '@material-ui/core/styles';
 import SankeyChart from './SankeyChart';
 
-const useStyles = makeStyles(theme => ({}));
-
 const MainVisualization = () => {
-  const classes = useStyles();
   return (
     <ExpansionPanel defaultExpanded>
       <ExpansionPanelSummary

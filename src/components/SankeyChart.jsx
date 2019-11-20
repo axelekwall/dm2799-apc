@@ -5,11 +5,11 @@ import {
   sankeyLeft,
 } from 'd3-sankey';
 import { Rect, Path, VictoryContainer } from 'victory';
-import useFocusNode from '../hooks/useFocusNode';
+import useNodeInteraction from '../hooks/useNodeInteraction';
 import useNodes from '../hooks/useNodes';
 
 const SankeyChart = ({ width, height, nodeWidth = 30, nodePadding = 30 }) => {
-  const { focusNode, setFocusNode } = useFocusNode();
+  const { focusNode, nodeInteraction } = useNodeInteraction();
   const nodes = useNodes();
   const links = useMemo(() => {
     const tmp = [];
@@ -55,7 +55,7 @@ const SankeyChart = ({ width, height, nodeWidth = 30, nodePadding = 30 }) => {
       ))}
       {graph.nodes.map(node => (
         <Rect
-          {...setFocusNode(node.id)}
+          {...nodeInteraction(node.id)}
           key={node.id}
           fill={node.id === focusNode ? 'black' : 'grey'}
           x={node.x0}

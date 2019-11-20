@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   focusNode: '',
+  selectedNode: '',
 };
 
 const uiSlice = createSlice({
@@ -10,6 +11,9 @@ const uiSlice = createSlice({
   reducers: {
     setFocusNode: (state, { payload }) => {
       state.focusNode = payload;
+    },
+    setSelectedNode: (state, { payload }) => {
+      state.selectedNode = payload;
     },
   },
 });

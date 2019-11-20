@@ -2,19 +2,25 @@ import { actions } from '../store/ui';
 import { useDispatch, useSelector } from 'react-redux';
 import { useCallback } from 'react';
 
-const useFocusNode = () => {
+const useNodeInteraction = () => {
   const dispatch = useDispatch();
-  const { focusNode } = useSelector(state => state.ui);
+  const { focusNode, selectedNode } = useSelector(state => state.ui);
   const setFocusNode = useCallback(
     payload => dispatch(actions.setFocusNode(payload)),
     [dispatch]
   );
+  const setSelectedNode = useCallback(
+    payload => dispatch(actions.setSelectedNode(payload)),
+    [dispatch]
+  );
   return {
     focusNode,
-    setFocusNode: id => ({
+    selectedNode,
+    nodeInteraction: id => ({
       onMouseEnter: () => setFocusNode(id),
       onMouseLeave: () => setFocusNode(''),
+      onClick: () => setSelectedNode(id),
     }),
   };
 };
-export default useFocusNode;
+export default useNodeInteraction;

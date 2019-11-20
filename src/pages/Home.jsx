@@ -5,6 +5,7 @@ import Visualization from '../components/Visualization';
 import { Container, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import SankeyChart from '../components/SankeyChart';
+import Drawer from '../components/Drawer';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -33,6 +34,7 @@ const Home = () => {
   return (
     <div className={classes.root}>
       <Header title="Dashboard" />
+      <Drawer />
       <main className={classes.main}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="xl" className={classes.container}>

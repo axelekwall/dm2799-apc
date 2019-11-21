@@ -4,24 +4,33 @@ import PrivateRoute from './PrivateRoute';
 import Home from '../pages/Home';
 import Public from '../pages/Public';
 import useAuth from '../hooks/useAuth';
+import useData from '../hooks/useData';
 
-const ProtectedRoutes = () => (
-  <Switch>
-    <Route component={Home} path="/dashboard" />
-    <Redirect to="/dashboard" />
-  </Switch>
-);
+const ProtectedRoutes = () => {
+  const dataInitialized = useData();
+  return dataInitialized ? (
+    <Switch>
+      <Route component={Home} path="/dashboard" />
+      <Redirect to="/dashboard" />
+    </Switch>
+  ) : (
+    <div>Loading</div>
+  );
+};
 
 const Router = () => {
-  const isInitialized = useAuth();
-  return isInitialized ? (
+  const authInitialized = useAuth();
+  const dataInitialized = useData();
+  return authInitialized && dataInitialized ? (
     <BrowserRouter>
       <Switch>
         <Route component={Home} path="/" />
         <PrivateRoute component={ProtectedRoutes} />
       </Switch>
     </BrowserRouter>
-  ) : null;
+  ) : (
+    <div>Loading</div>
+  );
 };
 
 export default Router;

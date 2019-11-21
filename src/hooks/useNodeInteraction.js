@@ -4,13 +4,14 @@ import { useCallback } from 'react';
 
 const useNodeInteraction = () => {
   const dispatch = useDispatch();
-  const { focusNode, selectedNode } = useSelector(state => state.ui);
+  const focusNode = useSelector(state => state.ui.focusNode);
+  const selectedNode = useSelector(state => state.ui.selectedNode);
   const setFocusNode = useCallback(
-    payload => dispatch(actions.setFocusNode(payload)),
+    payload => dispatch(actions.nodeFocused(payload)),
     [dispatch]
   );
   const setSelectedNode = useCallback(
-    payload => dispatch(actions.setSelectedNode(payload)),
+    payload => dispatch(actions.nodeSelected(payload)),
     [dispatch]
   );
   return {

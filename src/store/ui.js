@@ -9,10 +9,10 @@ const uiSlice = createSlice({
   name: 'ui',
   initialState,
   reducers: {
-    setFocusNode: (state, { payload }) => {
+    nodeFocused: (state, { payload }) => {
       state.focusNode = payload;
     },
-    setSelectedNode: (state, { payload }) => {
+    nodeSelected: (state, { payload }) => {
       state.selectedNode = payload;
     },
   },

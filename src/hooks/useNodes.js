@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 
 const useNodes = filter => {
-  const { nodes } = useSelector(state => state.data);
+  const nodes = useSelector(state => state.data.nodes);
   return filter
     ? nodes.filter(node => {
         let type = true;

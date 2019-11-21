@@ -8,6 +8,21 @@ import { Rect, Path, VictoryContainer } from 'victory';
 import useNodeInteraction from '../hooks/useNodeInteraction';
 import useNodes from '../hooks/useNodes';
 
+const getNode = (nodes, id) => nodes.filter(node => node.id === id)[0];
+
+const getLinkedNodes = (nodes, id) => {
+  if (id === '') return [];
+  const { links } = getNode(nodes, id);
+  let linkedNodes = [];
+  linkedNodes.push(id);
+  if (links.length > 0) {
+    links.forEach(link => {
+      linkedNodes = linkedNodes.concat(getLinkedNodes(nodes, link));
+    });
+  }
+  return linkedNodes;
+};
+
 const SankeyChart = ({ width, height, nodeWidth = 30, nodePadding = 30 }) => {
   const { focusNode, nodeInteraction } = useNodeInteraction();
   const nodes = useNodes();
@@ -29,6 +44,11 @@ const SankeyChart = ({ width, height, nodeWidth = 30, nodePadding = 30 }) => {
     return tmp;
   }, [nodes]);
 
+  const highlightedNodes = useMemo(() => getLinkedNodes(nodes, focusNode), [
+    nodes,
+    focusNode,
+  ]);
+
   const sankey = useMemo(
     () =>
       d3Sankey()
@@ -39,13 +59,15 @@ const SankeyChart = ({ width, height, nodeWidth = 30, nodePadding = 30 }) => {
         .size([width, height]),
     [nodePadding, nodeWidth, width, height]
   );
-  console.log('nodes', nodes);
-  console.log('links', links);
 
-  const graph = sankey({
-    nodes: nodes.map(d => Object.assign({}, d)),
-    links: links.map(d => Object.assign({}, d)),
-  });
+  const graph = useMemo(
+    () =>
+      sankey({
+        nodes: nodes.map(d => Object.assign({}, d)),
+        links: links.map(d => Object.assign({}, d)),
+      }),
+    [sankey, nodes, links]
+  );
 
   return (
     <VictoryContainer width={width} height={height}>
@@ -53,8 +75,10 @@ const SankeyChart = ({ width, height, nodeWidth = 30, nodePadding = 30 }) => {
         {graph.links.map(link => (
           <Path
             fill="none"
-            stroke="#000"
-            strokeOpacity="0.2"
+            stroke="black"
+            strokeOpacity={
+              highlightedNodes.includes(link.target.id) ? '0.7' : '0.2'
+            }
             key={link.id}
             d={sankeyLinkHorizontal()(link)}
             strokeWidth={Math.max(1, link.width)}
@@ -66,7 +90,8 @@ const SankeyChart = ({ width, height, nodeWidth = 30, nodePadding = 30 }) => {
           <Rect
             {...nodeInteraction(node.id)}
             key={node.id}
-            fill={node.id === focusNode ? 'black' : 'grey'}
+            fill={focusNode === node.id ? 'red' : 'grey'}
+            fillOpacity={highlightedNodes.includes(node.id) ? '0.7' : '0.2'}
             x={node.x0}
             y={node.y0}
             width={node.x1 - node.x0}

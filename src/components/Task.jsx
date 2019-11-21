@@ -8,7 +8,9 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
     display: 'flex',
     flexDirection: 'column',
-    backgroundColor: ({ focus }) => (focus ? 'rgba(255,255,100)' : 'white'),
+    borderColor: ({ focus }) => (focus ? 'lightblue' : 'white'),
+    borderWidth: '2px',
+    borderStyle: 'solid',
   },
 }));
 

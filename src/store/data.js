@@ -21,7 +21,7 @@ const dataSlice = createSlice({
     },
     nodeUpdated: (state, { payload }) => {
       state.nodes.forEach(node => {
-        if (node.id === payload.id) {
+        if (node.id === payload.id && node.type === 'task') {
           node = Object.assign(node, payload);
         }
       });

@@ -18,6 +18,7 @@ const Task = ({ data }) => {
   const { title, desc, id } = data;
   const { focusNode, nodeInteraction } = useNodeInteraction();
   const classes = useStyles({ focus: focusNode === id });
+
   return (
     <Paper className={classes.paper} {...nodeInteraction(id)}>
       <Typography variant="subtitle1">{title}</Typography>

@@ -33,6 +33,9 @@ const useStyles = makeStyles(theme => ({
   sliderInput: {
     marginBottom: theme.spacing(2),
   },
+  submitButton: {
+    marginTop: theme.spacing(2),
+  },
 }));
 
 const TaskForm = ({ taskId, action }) => {
@@ -87,7 +90,12 @@ const TaskForm = ({ taskId, action }) => {
       />
       <FormControl className={classes.selectInput}>
         <InputLabel id="state-select-label">State</InputLabel>
-        <Select labelId="state-select-label" id="state-select" {...stateInput}>
+        <Select
+          disabled={readOnly}
+          labelId="state-select-label"
+          id="state-select"
+          {...stateInput}
+        >
           <MenuItem value="todo">Todo</MenuItem>
           <MenuItem value="inProgress">In Progress</MenuItem>
           <MenuItem value="done">Done</MenuItem>
@@ -98,6 +106,7 @@ const TaskForm = ({ taskId, action }) => {
         Estimate
       </Typography>
       <Slider
+        disabled={readOnly}
         className={classes.sliderInput}
         aria-labelledby="estimate-input-label"
         valueLabelDisplay="auto"
@@ -109,7 +118,12 @@ const TaskForm = ({ taskId, action }) => {
         onChange={handleEstimateChange}
       />
       {!readOnly && (
-        <Button variant="contained" color="primary" type="submit">
+        <Button
+          className={classes.submitButton}
+          variant="contained"
+          color="primary"
+          type="submit"
+        >
           Save
         </Button>
       )}

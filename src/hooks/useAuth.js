@@ -5,22 +5,16 @@ import { useSelector, useDispatch } from 'react-redux';
 
 const useAuth = () => {
   const dispatch = useDispatch();
-  const setAuth = useCallback(payload => dispatch(actions.success(payload)), [
-    dispatch,
-  ]);
   const storeReset = useCallback(() => {
     dispatch(actions.reset());
   }, [dispatch]);
-  const initialized = useCallback(() => dispatch(actions.initialized()), [
-    dispatch,
-  ]);
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(
       async user => {
         try {
           if (user) {
             // Auth successful
-            setAuth(user);
+            dispatch(actions.success(user));
           } else {
             // No user
             storeReset();
@@ -30,7 +24,7 @@ const useAuth = () => {
           console.log(error);
           await signOut();
         } finally {
-          initialized();
+          dispatch(actions.initialized());
         }
       },
       error => {
@@ -42,7 +36,7 @@ const useAuth = () => {
     return () => {
       unsubscribe();
     };
-  }, [initialized, setAuth, storeReset]);
+  }, [dispatch, storeReset]);
   return useSelector(state => state.auth.initialized);
 };
 

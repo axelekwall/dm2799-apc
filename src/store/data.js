@@ -17,6 +17,15 @@ const dataSlice = createSlice({
       state.initialized = true;
     },
     nodeDeleted: (state, { payload }) => {
+      const deletedLinks = state.nodes[payload].links;
+      Object.values(state.nodes).forEach(node => {
+        if (node.links.includes(payload)) {
+          node.links = Array.concat(
+            node.links.filter(link => link !== payload),
+            deletedLinks
+          );
+        }
+      });
       delete state.nodes[payload];
     },
     nodeUpdated: (state, { payload }) => {

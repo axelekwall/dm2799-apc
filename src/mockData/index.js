@@ -4,8 +4,8 @@ let ids = Array(9).fill(null);
 
 ids = ids.map(() => uuid());
 
-export default [
-  {
+export default {
+  [ids[0]]: {
     id: ids[0],
     title: 'DD1334 Database Technology',
     desc:
@@ -15,7 +15,7 @@ export default [
     links: [],
     estimate: 1,
   },
-  {
+  [ids[1]]: {
     id: ids[1],
     title: 'Learning Goal 1',
     desc: 'Schema and queries in relational database model using SQL',
@@ -24,7 +24,7 @@ export default [
     links: [ids[0]],
     estimate: 1,
   },
-  {
+  [ids[2]]: {
     id: ids[2],
     title: 'Learning Goal 2',
     desc:
@@ -34,7 +34,7 @@ export default [
     links: [ids[0]],
     estimate: 1,
   },
-  {
+  [ids[3]]: {
     id: ids[3],
     title: 'Learning Goal 3',
     desc:
@@ -44,7 +44,7 @@ export default [
     links: [ids[0]],
     estimate: 1,
   },
-  {
+  [ids[4]]: {
     id: ids[4],
     title: 'Learning Goal 4',
     desc:
@@ -54,7 +54,7 @@ export default [
     links: [ids[0]],
     estimate: 1,
   },
-  {
+  [ids[5]]: {
     id: ids[5],
     title: 'Learning Goal 5',
     desc: 'The XML database model, XML-schema DTD, and XQuery',
@@ -63,7 +63,7 @@ export default [
     links: [ids[0]],
     estimate: 1,
   },
-  {
+  [ids[6]]: {
     id: ids[6],
     title: 'Relational algebra',
     desc: 'I need to read about this subject and learn more',
@@ -72,7 +72,7 @@ export default [
     links: [ids[1], ids[2], ids[4]],
     estimate: 1,
   },
-  {
+  [ids[7]]: {
     id: ids[7],
     title: 'XML databases',
     desc: 'I need to read about this subject and learn more',
@@ -81,7 +81,7 @@ export default [
     links: [ids[5]],
     estimate: 1,
   },
-  {
+  [ids[8]]: {
     id: ids[8],
     title: 'Something in progress',
     desc: 'Description of the task',
@@ -90,4 +90,4 @@ export default [
     links: [ids[6], ids[7]],
     estimate: 1,
   },
-];
+};

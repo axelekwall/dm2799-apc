@@ -2,7 +2,6 @@ import { useSelector } from 'react-redux';
 
 const isChild = (nodes, nodeId, id) => {
   const node = nodes[nodeId];
-  console.log(node);
   if (node.links.length <= 0) return false;
   if (node.links.includes(id)) return true;
   return node.links.reduce(

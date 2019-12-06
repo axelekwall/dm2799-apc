@@ -43,7 +43,7 @@ const useStyles = makeStyles(theme => ({
 
 const SelectedLink = ({ id }) => {
   const { title } = useSelector(state => state.data.nodes[id], [id]);
-  return <span>{title}</span>;
+  return <span style={{ marginRight: '10px' }}>{title}</span>;
 };
 
 const TaskForm = ({ taskId, action }) => {
@@ -67,6 +67,7 @@ const TaskForm = ({ taskId, action }) => {
   const handleSubmit = useCallback(
     e => {
       e.preventDefault();
+      if (links.length <= 0) return;
       action({
         id: taskId ? taskId : uuid(),
         title,
@@ -126,17 +127,27 @@ const TaskForm = ({ taskId, action }) => {
       </FormControl>
       <FormControl className={classes.selectInput}>
         <InputLabel id="state-select-label">State</InputLabel>
-        <Select
-          disabled={readOnly}
-          labelId="state-select-label"
-          id="state-select"
-          {...stateInput}
-        >
-          <MenuItem value="todo">Todo</MenuItem>
-          <MenuItem value="inProgress">In Progress</MenuItem>
-          <MenuItem value="done">Done</MenuItem>
-          <MenuItem value="auto">Auto</MenuItem>
-        </Select>
+        {state === 'auto' ? (
+          <Select
+            disabled={readOnly}
+            labelId="state-select-label"
+            id="state-select"
+            {...stateInput}
+          >
+            <MenuItem value="auto">Auto</MenuItem>
+          </Select>
+        ) : (
+          <Select
+            disabled={readOnly}
+            labelId="state-select-label"
+            id="state-select"
+            {...stateInput}
+          >
+            <MenuItem value="todo">Todo</MenuItem>
+            <MenuItem value="inProgress">In Progress</MenuItem>
+            <MenuItem value="done">Done</MenuItem>
+          </Select>
+        )}
       </FormControl>
       <Typography id="estimate-input-label" gutterBottom>
         Estimate

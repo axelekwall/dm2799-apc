@@ -23,6 +23,20 @@ const getLinkedNodes = (nodes, id) => {
   return linkedNodes;
 };
 
+const getColor = node => {
+  switch (node.state) {
+    case 'done':
+      return 'green';
+    case 'inProgress':
+      return 'yellow';
+    case 'auto':
+      return 'grey';
+    case 'todo':
+    default:
+      return 'blue';
+  }
+};
+
 const SankeyChart = ({ width, height, nodeWidth = 30, nodePadding = 30 }) => {
   const { focusNode, nodeInteraction } = useNodeInteraction();
   const nodes = useNodes();
@@ -90,7 +104,7 @@ const SankeyChart = ({ width, height, nodeWidth = 30, nodePadding = 30 }) => {
           <Rect
             {...nodeInteraction(node.id)}
             key={node.id}
-            fill={focusNode === node.id ? 'red' : 'grey'}
+            fill={focusNode === node.id ? 'red' : getColor(node)}
             fillOpacity={highlightedNodes.includes(node.id) ? '0.7' : '0.2'}
             x={node.x0}
             y={node.y0}

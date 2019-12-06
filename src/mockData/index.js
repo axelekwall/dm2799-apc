@@ -1,6 +1,6 @@
 import uuid from 'uuid/v4';
 
-let ids = Array(9).fill(null);
+let ids = Array(20).fill(null);
 
 ids = ids.map(() => uuid());
 
@@ -83,11 +83,65 @@ export default {
   },
   [ids[8]]: {
     id: ids[8],
-    title: 'Something in progress',
+    title: 'Computer Lab 1',
     desc: 'Description of the task',
     type: 'task',
     state: 'inProgress',
-    links: [ids[6], ids[7]],
+    links: [ids[1], ids[4]],
+    estimate: 1,
+  },
+  [ids[9]]: {
+    id: ids[9],
+    title: 'Computer Lab 2',
+    desc: 'Description of the task',
+    type: 'task',
+    state: 'inProgress',
+    links: [ids[2], ids[4]],
+    estimate: 1,
+  },
+  [ids[10]]: {
+    id: ids[10],
+    title: 'Computer Lab 3',
+    desc: 'Description of the task',
+    type: 'task',
+    state: 'todo',
+    links: [ids[2], ids[3]],
+    estimate: 1,
+  },
+  [ids[11]]: {
+    id: ids[11],
+    title: 'Computer Lab 4',
+    desc: 'Description of the task',
+    type: 'task',
+    state: 'todo',
+    links: [ids[3], ids[5]],
+    estimate: 1,
+  },
+  [ids[12]]: {
+    id: ids[12],
+    title: 'Prepare Computer Lab 2',
+    desc: 'Description of the task',
+    type: 'task',
+    state: 'done',
+    links: [ids[9]],
+    estimate: 1,
+  },
+  [ids[13]]: {
+    id: ids[13],
+    title: 'Prepare Computer Lab 3',
+    desc: 'Description of the task',
+    type: 'task',
+    state: 'todo',
+    links: [ids[10]],
+    estimate: 1,
+  },
+  [ids[14]]: {
+    id: ids[14],
+    title: 'Prepare Computer Lab 4',
+    desc: 'Description of the task',
+    type: 'task',
+    state: 'done',
+    links: [ids[11]],
     estimate: 1,
   },
 };

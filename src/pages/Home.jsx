@@ -41,7 +41,7 @@ const Home = () => {
       <main className={classes.main}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="xl" className={classes.container}>
-          <Visualization title="Main Visualization">
+          <Visualization title="Progress Visualization">
             <SankeyChart width={1000} height={400} />
           </Visualization>
           {/* <Visualization title="Progress Visualization">

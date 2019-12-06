@@ -18,35 +18,26 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const EditDrawer = () => {
+const AddDrawer = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const selectedNodeId = useSelector(state => state.ui.selectedNode);
-  const resetSelected = useCallback(
-    () => dispatch(uiActions.nodeSelected('')),
-    [dispatch]
-  );
-  const updateNode = useCallback(
+  const open = useSelector(state => state.ui.addTask);
+  const toggleDrawer = useCallback(() => dispatch(uiActions.addTask()), [
+    dispatch,
+  ]);
+  const addNode = useCallback(
     payload => {
-      dispatch(dataActions.nodeUpdated(payload));
+      dispatch(dataActions.newNodes({ [payload.id]: payload }));
     },
     [dispatch]
   );
-  const deleteAction = () => {
-    dispatch(dataActions.nodeDeleted(selectedNodeId));
-    resetSelected();
-  };
   return (
-    <Drawer anchor="left" open={selectedNodeId !== ''} onClose={resetSelected}>
+    <Drawer anchor="right" open={open} onClose={toggleDrawer}>
       <div className={classes.wrapper}>
-        <TaskForm
-          taskId={selectedNodeId}
-          action={updateNode}
-          deleteAction={deleteAction}
-        ></TaskForm>
+        <TaskForm action={addNode}></TaskForm>
       </div>
     </Drawer>
   );
 };
 
-export default EditDrawer;
+export default AddDrawer;

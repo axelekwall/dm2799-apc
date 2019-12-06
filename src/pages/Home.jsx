@@ -6,6 +6,8 @@ import { Container, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import SankeyChart from '../components/SankeyChart';
 import EditDrawer from '../components/EditDrawer';
+import AddDrawer from '../components/AddDrawer';
+import AddButton from '../components/AddButton';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -35,6 +37,7 @@ const Home = () => {
     <div className={classes.root}>
       <Header title="Dashboard" />
       <EditDrawer />
+      <AddDrawer />
       <main className={classes.main}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="xl" className={classes.container}>
@@ -57,6 +60,7 @@ const Home = () => {
           </Grid>
         </Container>
       </main>
+      <AddButton />
     </div>
   );
 };

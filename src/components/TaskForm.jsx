@@ -46,7 +46,7 @@ const SelectedLink = ({ id }) => {
   return <span style={{ marginRight: '10px' }}>{title}</span>;
 };
 
-const TaskForm = ({ taskId, action }) => {
+const TaskForm = ({ taskId, action, deleteAction }) => {
   const classes = useStyles();
   const task = useSelector(state => state.data.nodes[taskId], [taskId]);
   const tasks = useNodes({ id: taskId });
@@ -67,7 +67,7 @@ const TaskForm = ({ taskId, action }) => {
   const handleSubmit = useCallback(
     e => {
       e.preventDefault();
-      if (links.length <= 0) return;
+      if (links.length <= 0 || title.length <= 0) return;
       action({
         id: taskId ? taskId : uuid(),
         title,
@@ -82,6 +82,10 @@ const TaskForm = ({ taskId, action }) => {
   const handleEstimateChange = useCallback((e, value) => {
     e.preventDefault();
     setEstimate(value);
+  }, []);
+  const handleDelete = useCallback(e => {
+    e.preventDefault();
+    deleteAction();
   }, []);
   return (
     <form
@@ -172,6 +176,17 @@ const TaskForm = ({ taskId, action }) => {
           type="submit"
         >
           Save
+        </Button>
+      )}
+      {!readOnly && deleteAction && (
+        <Button
+          className={classes.submitButton}
+          variant="contained"
+          color="secondary"
+          type="button"
+          onClick={handleDelete}
+        >
+          Delete
         </Button>
       )}
     </form>

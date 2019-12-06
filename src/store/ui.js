@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   focusNode: '',
   selectedNode: '',
+  addTask: false,
 };
 
 const uiSlice = createSlice({
@@ -14,6 +15,9 @@ const uiSlice = createSlice({
     },
     nodeSelected: (state, { payload }) => {
       state.selectedNode = payload;
+    },
+    addTask: state => {
+      state.addTask = !state.addTask;
     },
   },
 });

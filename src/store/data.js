@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  nodes: [],
+  nodes: {},
   history: [],
   initialized: false,
 };
@@ -11,20 +11,21 @@ const dataSlice = createSlice({
   initialState,
   reducers: {
     newNodes: (state, { payload }) => {
-      state.nodes = state.nodes.concat(payload);
+      state.nodes = Object.assign(state.nodes, payload);
     },
     initialized: state => {
       state.initialized = true;
     },
     nodeDeleted: (state, { payload }) => {
-      state.nodes = state.nodes.filter(node => node.id === payload);
+      delete state.nodes[payload];
     },
     nodeUpdated: (state, { payload }) => {
-      state.nodes.forEach(node => {
-        if (node.id === payload.id && node.type === 'task') {
-          node = Object.assign(node, payload);
-        }
-      });
+      if (state.nodes[payload.id].type === 'task') {
+        state.nodes[payload.id] = Object.assign(
+          state.nodes[payload.id],
+          payload
+        );
+      }
     },
   },
 });

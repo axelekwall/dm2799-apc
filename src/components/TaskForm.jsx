@@ -8,11 +8,14 @@ import {
   MenuItem,
   Typography,
   Slider,
+  ListItemText,
+  Checkbox,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import useInput from '../hooks/useInput';
 import { useSelector } from 'react-redux';
 import uuid from 'uuid/v4';
+import useNodes from '../hooks/useNodes';
 
 const useStyles = makeStyles(theme => ({
   wrapper: {
@@ -38,12 +41,15 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+const SelectedLink = ({ id }) => {
+  const { title } = useSelector(state => state.data.nodes[id], [id]);
+  return <span>{title}</span>;
+};
+
 const TaskForm = ({ taskId, action }) => {
   const classes = useStyles();
-  const task = useSelector(
-    state => state.data.nodes.filter(node => node.id === taskId)[0],
-    [taskId]
-  );
+  const task = useSelector(state => state.data.nodes[taskId], [taskId]);
+  const tasks = useNodes({ id: taskId });
   const { inputProperties: titleInput, value: title } = useInput(
     task ? task.title : ''
   );
@@ -53,14 +59,24 @@ const TaskForm = ({ taskId, action }) => {
   const { inputProperties: stateInput, value: state } = useInput(
     task ? task.state : 'todo'
   );
+  const { inputProperties: linksInput, value: links } = useInput(
+    task ? task.links : []
+  );
   const [estimate, setEstimate] = useState(task ? task.estimate : 1);
   const readOnly = task && task.type !== 'task';
   const handleSubmit = useCallback(
     e => {
       e.preventDefault();
-      action({ id: taskId ? taskId : uuid(), title, desc, state, estimate });
+      action({
+        id: taskId ? taskId : uuid(),
+        title,
+        desc,
+        state,
+        estimate,
+        links,
+      });
     },
-    [action, title, desc, taskId, state, estimate]
+    [action, title, desc, taskId, state, estimate, links]
   );
   const handleEstimateChange = useCallback((e, value) => {
     e.preventDefault();
@@ -88,6 +104,26 @@ const TaskForm = ({ taskId, action }) => {
         multiline
         {...descInput}
       />
+      <FormControl className={classes.selectInput}>
+        <InputLabel id="links-select-label">Links</InputLabel>
+        <Select
+          disabled={readOnly}
+          labelId="links-select-label"
+          id="links-select"
+          renderValue={selected =>
+            selected.map(id => <SelectedLink key={id} id={id} />)
+          }
+          multiple
+          {...linksInput}
+        >
+          {tasks.map(task => (
+            <MenuItem key={task.id} value={task.id}>
+              <Checkbox checked={links.indexOf(task.id) > -1} />
+              <ListItemText primary={task.title} />
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
       <FormControl className={classes.selectInput}>
         <InputLabel id="state-select-label">State</InputLabel>
         <Select

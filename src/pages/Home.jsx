@@ -41,9 +41,9 @@ const Home = () => {
           <Visualization title="Main Visualization">
             <SankeyChart width={1000} height={400} />
           </Visualization>
-          <Visualization title="Progress Visualization">
+          {/* <Visualization title="Progress Visualization">
             <div>Test</div>
-          </Visualization>
+          </Visualization> */}
           <Grid className={classes.taskListsWrapper} container spacing={3}>
             <Grid item xs={12} md={4}>
               <TaskList title="Todo" taskState="todo" />

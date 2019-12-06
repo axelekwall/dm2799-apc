@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useMemo } from 'react';
 import {
   TextField,
   Button,
@@ -15,7 +15,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import useInput from '../hooks/useInput';
 import { useSelector } from 'react-redux';
 import uuid from 'uuid/v4';
-import useNodes from '../hooks/useNodes';
 
 const useStyles = makeStyles(theme => ({
   wrapper: {
@@ -46,10 +45,28 @@ const SelectedLink = ({ id }) => {
   return <span style={{ marginRight: '10px' }}>{title}</span>;
 };
 
+const isChild = (nodes, nodeId, id) => {
+  const node = nodes[nodeId];
+  if (node.links.length <= 0) return false;
+  if (node.links.includes(id)) return true;
+  return node.links.reduce(
+    (prev, curr) => (isChild(nodes, curr, id) ? true : prev),
+    false
+  );
+};
+
 const TaskForm = ({ taskId, action, deleteAction }) => {
   const classes = useStyles();
   const task = useSelector(state => state.data.nodes[taskId], [taskId]);
-  const tasks = useNodes({ id: taskId });
+  const nodes = useSelector(state => state.data.nodes);
+  const validLinks = useMemo(
+    () =>
+      Object.values(nodes).filter(
+        ({ id, type }) =>
+          taskId !== id && type !== 'root' && !isChild(nodes, id, taskId)
+      ),
+    [nodes, taskId]
+  );
   const { inputProperties: titleInput, value: title } = useInput(
     task ? task.title : ''
   );
@@ -79,14 +96,20 @@ const TaskForm = ({ taskId, action, deleteAction }) => {
     },
     [action, title, desc, taskId, state, estimate, links]
   );
-  const handleEstimateChange = useCallback((e, value) => {
-    e.preventDefault();
-    setEstimate(value);
-  }, []);
-  const handleDelete = useCallback(e => {
-    e.preventDefault();
-    deleteAction();
-  }, []);
+  const handleEstimateChange = useCallback(
+    (e, value) => {
+      e.preventDefault();
+      setEstimate(value);
+    },
+    [setEstimate]
+  );
+  const handleDelete = useCallback(
+    e => {
+      e.preventDefault();
+      deleteAction();
+    },
+    [deleteAction]
+  );
   return (
     <form
       className={classes.form}
@@ -121,7 +144,7 @@ const TaskForm = ({ taskId, action, deleteAction }) => {
           multiple
           {...linksInput}
         >
-          {tasks.map(task => (
+          {validLinks.map(task => (
             <MenuItem key={task.id} value={task.id}>
               <Checkbox checked={links.indexOf(task.id) > -1} />
               <ListItemText primary={task.title} />

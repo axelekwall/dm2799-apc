@@ -1,6 +1,6 @@
 import uuid from 'uuid/v4';
 
-let ids = Array(20).fill(null);
+let ids = Array(30).fill(null);
 
 ids = ids.map(() => uuid());
 
@@ -11,7 +11,7 @@ export default {
     desc:
       'A continuation in computer science that covers the fundamentals of database technology.',
     type: 'root',
-    state: 'auto',
+    state: 'todo',
     links: [],
     estimate: 1,
   },
@@ -20,7 +20,7 @@ export default {
     title: 'Learning Goal 1',
     desc: 'Schema and queries in relational database model using SQL',
     type: 'template',
-    state: 'auto',
+    state: 'todo',
     links: [ids[0]],
     estimate: 1,
   },
@@ -30,7 +30,7 @@ export default {
     desc:
       'The operation of constraints and triggers during  modifications of a SQL database',
     type: 'template',
-    state: 'auto',
+    state: 'todo',
     links: [ids[0]],
     estimate: 1,
   },
@@ -40,7 +40,7 @@ export default {
     desc:
       'How to avoid anomalies, preserve information and dependencies in the design of a relational databases',
     type: 'template',
-    state: 'auto',
+    state: 'todo',
     links: [ids[0]],
     estimate: 1,
   },
@@ -50,7 +50,7 @@ export default {
     desc:
       'The use of ER diagrams and design principles in relational database design',
     type: 'template',
-    state: 'auto',
+    state: 'todo',
     links: [ids[0]],
     estimate: 1,
   },
@@ -59,7 +59,7 @@ export default {
     title: 'Learning Goal 5',
     desc: 'The XML database model, XML-schema DTD, and XQuery',
     type: 'template',
-    state: 'auto',
+    state: 'todo',
     links: [ids[0]],
     estimate: 1,
   },

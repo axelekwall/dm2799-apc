@@ -6,62 +6,46 @@ import {
 } from 'd3-sankey';
 import { Rect, Path, VictoryContainer } from 'victory';
 import useNodeInteraction from '../hooks/useNodeInteraction';
-import useNodes from '../hooks/useNodes';
-
-const getNode = (nodes, id) => nodes.filter(node => node.id === id)[0];
-
-const getLinkedNodes = (nodes, id) => {
-  if (id === '') return [];
-  const { links } = getNode(nodes, id);
-  let linkedNodes = [];
-  linkedNodes.push(id);
-  if (links.length > 0) {
-    links.forEach(link => {
-      linkedNodes = linkedNodes.concat(getLinkedNodes(nodes, link));
-    });
-  }
-  return linkedNodes;
-};
-
-const getColor = node => {
-  switch (node.state) {
-    case 'done':
-      return 'green';
-    case 'inProgress':
-      return 'yellow';
-    case 'auto':
-      return 'grey';
-    case 'todo':
-    default:
-      return 'blue';
-  }
-};
+import { useSelector } from 'react-redux';
+import {
+  getAllParentNodes,
+  getNodeFillColor,
+  getNodeData,
+} from '../utils/nodeHelpers';
 
 const SankeyChart = ({ width, height, nodeWidth = 30, nodePadding = 30 }) => {
   const { focusNode, nodeInteraction } = useNodeInteraction();
-  const nodes = useNodes();
-  const links = useMemo(() => {
-    const tmp = [];
-    nodes.forEach(node =>
-      node.links.forEach(link =>
-        tmp.push({
+  const nodesObj = useSelector(state => state.data.nodes);
+
+  const { links, nodes } = useMemo(() => {
+    const tmpNodes = [];
+    let tmpLinks = [];
+    Object.values(nodesObj).forEach(node => {
+      const { state, estimate } = getNodeData(nodesObj, node.id);
+      tmpLinks = tmpLinks.concat(
+        node.links.map(link => ({
           id: node.id + link,
           source: link,
           target: node.id,
-          value:
-            node.links.length > 0
-              ? node.estimate / node.links.length
-              : node.estimate,
-        })
-      )
-    );
-    return tmp;
-  }, [nodes]);
+          value: estimate / node.links.length,
+        }))
+      );
+      tmpNodes.push({
+        ...node,
+        ...{
+          state,
+          estimate,
+          // node.links.length > 0 ? estimate / node.links.length : estimate,
+        },
+      });
+    });
+    return { links: tmpLinks, nodes: tmpNodes };
+  }, [nodesObj]);
 
-  const highlightedNodes = useMemo(() => getLinkedNodes(nodes, focusNode), [
-    nodes,
-    focusNode,
-  ]);
+  const highlightedNodes = useMemo(
+    () => getAllParentNodes(nodesObj, focusNode),
+    [nodesObj, focusNode]
+  );
 
   const sankey = useMemo(
     () =>
@@ -104,7 +88,7 @@ const SankeyChart = ({ width, height, nodeWidth = 30, nodePadding = 30 }) => {
           <Rect
             {...nodeInteraction(node.id)}
             key={node.id}
-            fill={focusNode === node.id ? 'red' : getColor(node)}
+            fill={focusNode === node.id ? 'red' : getNodeFillColor(node)}
             fillOpacity={highlightedNodes.includes(node.id) ? '0.7' : '0.2'}
             x={node.x0}
             y={node.y0}

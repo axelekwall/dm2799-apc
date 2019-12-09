@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux';
+import { getNodeData } from '../utils/nodeHelpers';
 
 const useNodes = filter => {
   const nodes = useSelector(state => state.data.nodes);
@@ -11,7 +12,7 @@ const useNodes = filter => {
           type = filter.type === node.type;
         }
         if (filter.state) {
-          state = filter.state === node.state;
+          state = filter.state === getNodeData(nodes, node.id).state;
         }
         if (filter.id) {
           state = filter.id !== node.id;

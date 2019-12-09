@@ -15,6 +15,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import useInput from '../hooks/useInput';
 import { useSelector } from 'react-redux';
 import uuid from 'uuid/v4';
+import { getNodeChildrenIds, getNodeData } from '../utils/nodeHelpers';
 
 const useStyles = makeStyles(theme => ({
   wrapper: {
@@ -57,8 +58,8 @@ const isChild = (nodes, nodeId, id) => {
 
 const TaskForm = ({ taskId, action, deleteAction }) => {
   const classes = useStyles();
-  const task = useSelector(state => state.data.nodes[taskId], [taskId]);
   const nodes = useSelector(state => state.data.nodes);
+  const task = useMemo(() => nodes[taskId], [taskId, nodes]);
   const validLinks = useMemo(
     () =>
       Object.values(nodes).filter(
@@ -67,6 +68,10 @@ const TaskForm = ({ taskId, action, deleteAction }) => {
       ),
     [nodes, taskId]
   );
+  const nodeData = taskId
+    ? getNodeData(nodes, taskId)
+    : { estimate: 1, state: 'todo' };
+  const isParent = getNodeChildrenIds(nodes, taskId).length > 0;
   const { inputProperties: titleInput, value: title } = useInput(
     task ? task.title : ''
   );
@@ -74,12 +79,12 @@ const TaskForm = ({ taskId, action, deleteAction }) => {
     task ? task.desc : ''
   );
   const { inputProperties: stateInput, value: state } = useInput(
-    task ? task.state : 'todo'
+    nodeData.state
   );
   const { inputProperties: linksInput, value: links } = useInput(
     task ? task.links : []
   );
-  const [estimate, setEstimate] = useState(task ? task.estimate : 1);
+  const [estimate, setEstimate] = useState(nodeData.estimate);
   const readOnly = task && task.type !== 'task';
   const handleSubmit = useCallback(
     e => {
@@ -154,43 +159,45 @@ const TaskForm = ({ taskId, action, deleteAction }) => {
       </FormControl>
       <FormControl className={classes.selectInput}>
         <InputLabel id="state-select-label">State</InputLabel>
-        {state === 'auto' ? (
-          <Select
-            disabled={readOnly}
-            labelId="state-select-label"
-            id="state-select"
-            {...stateInput}
-          >
-            <MenuItem value="auto">Auto</MenuItem>
-          </Select>
-        ) : (
-          <Select
-            disabled={readOnly}
-            labelId="state-select-label"
-            id="state-select"
-            {...stateInput}
-          >
-            <MenuItem value="todo">Todo</MenuItem>
-            <MenuItem value="inProgress">In Progress</MenuItem>
-            <MenuItem value="done">Done</MenuItem>
-          </Select>
-        )}
+        <Select
+          disabled={readOnly || isParent}
+          labelId="state-select-label"
+          id="state-select"
+          {...stateInput}
+        >
+          <MenuItem value="todo">Todo</MenuItem>
+          <MenuItem value="inProgress">In Progress</MenuItem>
+          <MenuItem value="done">Done</MenuItem>
+        </Select>
       </FormControl>
-      <Typography id="estimate-input-label" gutterBottom>
-        Estimate
-      </Typography>
-      <Slider
-        disabled={readOnly}
-        className={classes.sliderInput}
-        aria-labelledby="estimate-input-label"
-        valueLabelDisplay="auto"
-        step={1}
-        marks
-        min={1}
-        max={5}
-        value={estimate}
-        onChange={handleEstimateChange}
-      />
+      {(readOnly || isParent) && (
+        <TextField
+          disabled
+          value={estimate}
+          className={classes.textInput}
+          id="input-estimate"
+          label="Estimate"
+        />
+      )}
+      {!readOnly && !isParent && (
+        <>
+          <Typography id="estimate-input-label" gutterBottom>
+            Estimate
+          </Typography>
+          <Slider
+            className={classes.sliderInput}
+            aria-labelledby="estimate-input-label"
+            valueLabelDisplay="auto"
+            step={1}
+            marks
+            min={1}
+            max={5}
+            value={estimate}
+            onChange={handleEstimateChange}
+          />
+        </>
+      )}
+
       {!readOnly && (
         <Button
           className={classes.submitButton}

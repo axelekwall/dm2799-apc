@@ -43,7 +43,7 @@ const EditDrawer = () => {
           taskId={selectedNodeId}
           action={updateNode}
           deleteAction={deleteAction}
-        ></TaskForm>
+        />
       </div>
     </Drawer>
   );

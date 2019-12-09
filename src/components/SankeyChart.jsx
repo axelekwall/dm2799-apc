@@ -35,7 +35,6 @@ const SankeyChart = ({ width, height, nodeWidth = 30, nodePadding = 30 }) => {
         ...{
           state,
           estimate,
-          // node.links.length > 0 ? estimate / node.links.length : estimate,
         },
       });
     });

@@ -5,6 +5,7 @@ import { actions as uiActions } from '../store/ui';
 import { actions as dataActions } from '../store/data';
 import { makeStyles } from '@material-ui/core/styles';
 import TaskForm from './TaskForm';
+import { createNode } from '../utils/nodeHelpers';
 
 const useStyles = makeStyles(theme => ({
   wrapper: {
@@ -27,14 +28,14 @@ const AddDrawer = () => {
   ]);
   const addNode = useCallback(
     payload => {
-      dispatch(dataActions.newNodes({ [payload.id]: payload }));
+      dispatch(dataActions.newNodes({ [payload.id]: createNode(payload) }));
     },
     [dispatch]
   );
   return (
     <Drawer anchor="right" open={open} onClose={toggleDrawer}>
       <div className={classes.wrapper}>
-        <TaskForm action={addNode}></TaskForm>
+        <TaskForm action={addNode} />
       </div>
     </Drawer>
   );

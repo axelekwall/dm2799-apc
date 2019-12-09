@@ -1,7 +1,9 @@
+import uuid from 'uuid/v4';
+
 const calcState = (current, state) => {
   switch (current) {
     case 'todo':
-      return state !== 'todo' ? 'todo' : 'inProgress';
+      return state === 'todo' ? 'todo' : 'inProgress';
     case 'inProgress':
       return current;
     case 'done':
@@ -25,7 +27,7 @@ export const getNodeData = (nodes, id) => {
         }
         return {
           estimate: data.estimate + nodeData.estimate / nodeData.linkCount,
-          state: calcState(data.state, nodeData),
+          state: calcState(data.state, nodeData.state),
         };
       },
       {
@@ -63,10 +65,19 @@ export const getNodeFillColor = node => {
       return 'green';
     case 'inProgress':
       return 'yellow';
-    case 'auto':
-      return 'grey';
     case 'todo':
     default:
       return 'blue';
   }
 };
+
+export const createNode = data => ({
+  id: uuid(),
+  title: 'Title',
+  desc: 'Description',
+  type: 'task',
+  state: 'todo',
+  links: [],
+  estimate: 1,
+  ...data,
+});

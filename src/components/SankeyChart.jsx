@@ -75,7 +75,7 @@ const SankeyChart = ({ width, height, nodeWidth = 30, nodePadding = 30 }) => {
             fill="none"
             stroke="black"
             strokeOpacity={
-              highlightedNodes.includes(link.target.id) ? '0.7' : '0.2'
+              highlightedNodes.includes(link.target.id) ? '0.7' : '0.4'
             }
             key={link.id}
             d={sankeyLinkHorizontal()(link)}
@@ -89,7 +89,7 @@ const SankeyChart = ({ width, height, nodeWidth = 30, nodePadding = 30 }) => {
             {...nodeInteraction(node.id)}
             key={node.id}
             fill={focusNode === node.id ? 'red' : getNodeFillColor(node)}
-            fillOpacity={highlightedNodes.includes(node.id) ? '0.7' : '0.2'}
+            fillOpacity={highlightedNodes.includes(node.id) ? '0.7' : '0.4'}
             x={node.x0}
             y={node.y0}
             width={node.x1 - node.x0}
